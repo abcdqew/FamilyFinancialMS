@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Model.Helper
@@ -84,7 +85,12 @@ namespace Model.Helper
         }
         #endregion
 
-        #region
+        #region 是否只包含字母和数字
+        public static bool IsNumberAndWord(string value)
+        {
+            Regex r = new Regex(@"^[a-zA-Z0-9]+$");
+            return r.Match(value).Success;
+        }
         #endregion
     }
 }

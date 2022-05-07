@@ -348,6 +348,22 @@ namespace FamilyFinancialMS.ViewModel
             expenditure.Expendituredate = Expendituredate;
             expenditure.Gcflag = false;
             expenditure.Id = Id;
+            if (string.IsNullOrWhiteSpace(expenditure.ExpenditureName) || expenditure.ExpenditureNumber == 0 || string.IsNullOrWhiteSpace(expenditure.FamilyName) || string.IsNullOrWhiteSpace(expenditure.FamilyTel))
+            {
+                AduMessageBox.Show(Application.Current.FindResource("RequiredNotSpace").ToString());
+                return;
+            }
+            var isfamily = server.QueryFamily(expenditure.FamilyName, expenditure.FamilyTel);
+            if (isfamily == 0)
+            {
+                AduMessageBox.Show(Application.Current.FindResource("Income_NoFamilyName").ToString());
+                return;
+            }
+            if (isfamily == 1)
+            {
+                AduMessageBox.Show(Application.Current.FindResource("Income_NoFamilyTel").ToString());
+                return;
+            }
             if (Mode == "Add")
             {
                 expenditure.CreateTime = DateTime.Now;

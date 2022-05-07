@@ -116,6 +116,7 @@
     <Compile Include="Common\WindowManager.cs" />
     <Compile Include="Converter\StringRepeatConverter.cs" />
     <Compile Include="Converter\ValueConver.cs" />
+    <Compile Include="ViewModel\BackupDatabaseViewModel.cs" />
     <Compile Include="ViewModel\ExpenditureViewModel.cs" />
     <Compile Include="ViewModel\FamilyViewModel.cs" />
     <Compile Include="ViewModel\IncomeViewModel.cs" />
@@ -126,6 +127,9 @@
     <Compile Include="ViewModel\SubItem.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\BackupDatabaseView.xaml.cs">
+      <DependentUpon>BackupDatabaseView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ExpenditureView.xaml.cs">
       <DependentUpon>ExpenditureView.xaml</DependentUpon>
     </Compile>
@@ -178,6 +182,10 @@
     <Page Include="Style\ShowControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\BackupDatabaseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ExpenditureView.xaml">
       <SubType>Designer</SubType>

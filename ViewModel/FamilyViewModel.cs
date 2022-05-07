@@ -342,6 +342,11 @@ namespace FamilyFinancialMS.ViewModel
             family.Iswork = Iswork;
             family.Gcflag = false;
             family.Id = Id;
+            if(string.IsNullOrWhiteSpace(family.Name)||string.IsNullOrWhiteSpace(family.Sex)||string.IsNullOrWhiteSpace(family.Tel))
+            {
+                AduMessageBox.Show(Application.Current.FindResource("RequiredNotSpace").ToString());
+                return;
+            }
             if (Mode == "Add")
             {
                 family.CreateTime = DateTime.Now;

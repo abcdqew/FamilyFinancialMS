@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SaveServer.cs" />
     <Compile Include="ConnectionStringsl.cs" />
     <Compile Include="DefaultContext.cs" />
     <Compile Include="ExpenditureRepository.cs" />

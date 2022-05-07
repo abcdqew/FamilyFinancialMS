@@ -51,6 +51,26 @@ namespace Repository
                 throw;
             }
         }
+        public int IdenticalAccount(string account)
+        {
+            int isIdentical = 0;
+            try
+            {
+                var context = new DefaultContext(ConnectionStringsl.connectionStringsl, DbType.SqlServer);
+                if (!string.IsNullOrWhiteSpace(account))
+                {
+                    isIdentical= context.Client.Queryable<User>().Where(it => it.Account == account).Count();
+                }
+                return isIdentical;
+
+            }
+            catch (Exception)
+            {
+
+                return isIdentical;
+            }
+           
+        }
         public int AddUser(User user)
         {
             int issuccess = 0;
@@ -114,6 +134,7 @@ namespace Repository
                 return issuccess;
             }
         }
+
         public List<User> GetUser(string account)
         {
             var context = new DefaultContext(ConnectionStringsl.connectionStringsl, DbType.SqlServer);

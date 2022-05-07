@@ -33,6 +33,32 @@ namespace Repository
                 throw;
             }
         }
+        public int QueryFamily(string name, string tel)
+        {
+            int issuccess = 0;
+            try
+            {
+                var context = new DefaultContext(ConnectionStringsl.connectionStringsl, DbType.SqlServer);
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    var family = context.Client.Queryable<Family>().Where(it => it.Name == name).First();
+                    if (family != null)
+                    {
+                        issuccess = 1;
+                        if (tel == family.Tel)
+                        {
+                            issuccess = 2;
+                        }
+                    }
+                }
+                return issuccess;
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
+        }
         public int AddExpenditure(Expenditure expenditure)
         {
             int issuccess = 0;

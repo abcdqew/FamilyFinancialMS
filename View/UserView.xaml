@@ -12,7 +12,7 @@
         <ViewModel:UserViewModel/>
     </UserControl.DataContext>
     <TabControl SelectedIndex="{Binding TabPageIndex}" BorderThickness="0">
-        <TabItem Visibility="Collapsed" BorderThickness="0">
+        <TabItem Visibility="Visible" BorderThickness="0">
             <Grid Background="White">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
@@ -110,23 +110,23 @@
                 <WrapPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left"  Background="Snow" Width="1080">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource User_Account}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
-                        <Metro:MetroTextBox Text="{Binding Account}" Foreground="Black" Width="100" InputHint="{DynamicResource User_Account}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Metro:MetroTextBox Text="{Binding Account}" Foreground="Black" Width="100" InputHint="{DynamicResource Required}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource User_Password}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
-                        <Metro:MetroTextBox Text="{Binding PassWord}" Foreground="Black" Width="100" InputHint="{DynamicResource User_Password}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Metro:MetroTextBox Text="{Binding PassWord}" Foreground="Black" Width="100" InputHint="{DynamicResource Required}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource User_Name}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
-                        <Metro:MetroTextBox Text="{Binding UserName}" Foreground="Black" Width="100" InputHint="{DynamicResource User_Name}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Metro:MetroTextBox Text="{Binding UserName}" Foreground="Black" Width="100" InputHint="{DynamicResource Required}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource User_Tel}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
-                        <Metro:MetroTextBox Text="{Binding Tel}" Foreground="Black" Width="100" InputHint="{DynamicResource User_Tel}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Metro:MetroTextBox Text="{Binding Tel}" Foreground="Black" Width="100" InputHint="{DynamicResource Required}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource User_Email}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
-                        <Metro:MetroTextBox Text="{Binding Email}" Foreground="Black" Width="100" InputHint="{DynamicResource User_Email}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Metro:MetroTextBox Text="{Binding Email}" Foreground="Black" Width="100" InputHint="{DynamicResource Optionally}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:AduCheckBox Content="{DynamicResource User_IsLocked}" IsChecked="{Binding IsLocked}"/>

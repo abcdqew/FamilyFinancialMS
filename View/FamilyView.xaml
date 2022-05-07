@@ -12,7 +12,7 @@
         <ViewModel:FamilyViewModel/>
     </UserControl.DataContext>
     <TabControl SelectedIndex="{Binding TabPageIndex}" BorderThickness="0">
-        <TabItem Visibility="Collapsed" BorderThickness="0">
+        <TabItem Visibility="Visible" BorderThickness="0">
             <Grid Background="White">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
@@ -107,15 +107,15 @@
                 <WrapPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left"  Background="Snow" Width="1080">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource Family_Name}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
-                        <Metro:MetroTextBox Text="{Binding Name}" Foreground="Black" Width="100" InputHint="{DynamicResource Family_Name}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Metro:MetroTextBox Text="{Binding Name}" Foreground="Black" Width="100" InputHint="{DynamicResource Required}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource Family_Sex}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
-                        <Metro:MetroTextBox Text="{Binding Sex}" Foreground="Black" Width="100" InputHint="{DynamicResource Family_Sex}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Metro:MetroTextBox Text="{Binding Sex}" Foreground="Black" Width="100" InputHint="{DynamicResource Required}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource User_Tel}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
-                        <Metro:MetroTextBox Text="{Binding Tel}" Foreground="Black" Width="100" InputHint="{DynamicResource User_Tel}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Metro:MetroTextBox Text="{Binding Tel}" Foreground="Black" Width="100" InputHint="{DynamicResource Required}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource Family_Birthday}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>

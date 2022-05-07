@@ -30,30 +30,6 @@ namespace Repository
                 IsAutoCloseConnection = true,
             });
         }
-        public void Demo()
-        {
-            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection("Server=.;Database=master;User ID=sa;Password=sa;");
-
-            System.Data.SqlClient.SqlCommand cmdBK = new System.Data.SqlClient.SqlCommand();
-            cmdBK.CommandType = System.Data.CommandType.Text;
-            cmdBK.Connection = conn;
-            cmdBK.CommandText = @"backup database test to disk='C:\ba' with init";
-
-            try
-            {
-                conn.Open();
-                cmdBK.ExecuteNonQuery();
-                AduMessageBox.Show("Backup successed.");
-            }
-            catch (Exception ex)
-            {
-                AduMessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                conn.Close();
-                conn.Dispose();
-            }
-        }
+        
     }
 }

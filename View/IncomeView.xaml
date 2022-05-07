@@ -12,7 +12,7 @@
         <ViewModel:IncomeViewModel/>
     </UserControl.DataContext>
     <TabControl SelectedIndex="{Binding TabPageIndex}" BorderThickness="0">
-        <TabItem Visibility="Collapsed" BorderThickness="0">
+        <TabItem Visibility="Visible" BorderThickness="0">
             <Grid Background="White">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
@@ -110,11 +110,11 @@
                 <WrapPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left"  Background="Snow" Width="1080">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource Income_IncomeName}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
-                        <Metro:MetroTextBox Text="{Binding IncomeName}" Foreground="Black" Width="100" InputHint="{DynamicResource Income_IncomeName}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Metro:MetroTextBox Text="{Binding IncomeName}" Foreground="Black" Width="100" InputHint="{DynamicResource Required}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource Income_IncomeNumber}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
-                        <Metro:MetroTextBox Text="{Binding IncomeNumber}" Foreground="Black" Width="100" InputHint="{DynamicResource Income_IncomeNumber}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Metro:MetroTextBox Text="{Binding IncomeNumber}" Foreground="Black" Width="100" InputHint="{DynamicResource Required}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource Income_Incomedate}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
@@ -122,11 +122,11 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource Income_FamilyName}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
-                        <Metro:MetroTextBox Text="{Binding FamilyName}" Foreground="Black" Width="100" InputHint="{DynamicResource Income_FamilyName}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Metro:MetroTextBox Text="{Binding FamilyName}" Foreground="Black" Width="100" InputHint="{DynamicResource Required}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Metro:MetroTextBlock Text="{DynamicResource Income_FamilyTel}" FontSize="16"  TextAlignment="Right" FontWeight="Light" Foreground="Black" Width="80" VerticalAlignment="Center" Margin="0 0 5 0"/>
-                        <Metro:MetroTextBox Text="{Binding FamilyTel}" Foreground="Black" Width="100" InputHint="{DynamicResource Income_FamilyTel}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Metro:MetroTextBox Text="{Binding FamilyTel}" Foreground="Black" Width="100" InputHint="{DynamicResource Required}" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
                 </WrapPanel>
             </Grid>

@@ -5,6 +5,7 @@ using FamilyFinancialMS.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Model.Entities;
+using Model.Helper;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -342,6 +344,31 @@ namespace FamilyFinancialMS.ViewModel
             user.Id = Id;
             user.LoginCounter = LoginCounter;
             user.LastLoginTime = DateTime.Now;
+            if(string.IsNullOrWhiteSpace(user.Account)|| string.IsNullOrWhiteSpace(user.UserName) || string.IsNullOrWhiteSpace(user.Password) || string.IsNullOrWhiteSpace(user.Tel))
+            {
+                AduMessageBox.Show(Application.Current.FindResource("RequiredNotSpace").ToString(), Application.Current.FindResource("Save").ToString());
+                return;
+            }
+            bool accountformat = false;
+            bool passwordformat = false;
+            accountformat = Helper.IsNumberAndWord(user.Account);
+            passwordformat = Helper.IsNumberAndWord(user.Password);
+            if(!accountformat)
+            {
+                AduMessageBox.Show(Application.Current.FindResource("User_accountformat").ToString());
+                return;
+            }
+            if (!passwordformat)
+            {
+                AduMessageBox.Show(Application.Current.FindResource("User_passwordformat").ToString());
+                return;
+            }
+            var isIdentical=server.IdenticalAccount(user.Account);
+            if(isIdentical>0)
+            {
+                AduMessageBox.Show(Application.Current.FindResource("User_IsIdenticalAccount").ToString());
+                return;
+            }
             if (Mode=="Add")
             {
                 user.CreateTime = DateTime.Now;
@@ -380,6 +407,9 @@ namespace FamilyFinancialMS.ViewModel
             }
             ResetQuery();
         }
+
+      
+
         public void Cancel()
         {
             TabPageIndex = 0;

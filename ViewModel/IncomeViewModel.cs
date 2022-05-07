@@ -348,6 +348,22 @@ namespace FamilyFinancialMS.ViewModel
             income.Incomedate = Incomedate;
             income.Gcflag = false;
             income.Id = Id;
+            if (string.IsNullOrWhiteSpace(income.IncomeName) || income.IncomeNumber == 0 || string.IsNullOrWhiteSpace(income.FamilyName) || string.IsNullOrWhiteSpace(income.FamilyTel))
+            {
+                AduMessageBox.Show(Application.Current.FindResource("RequiredNotSpace").ToString());
+                return;
+            }
+            var isfamily = server.QueryFamily(income.FamilyName,income.FamilyTel);
+            if(isfamily == 0)
+            {
+                AduMessageBox.Show(Application.Current.FindResource("Income_NoFamilyName").ToString());
+                return;
+            }
+            if (isfamily == 1)
+            {
+                AduMessageBox.Show(Application.Current.FindResource("Income_NoFamilyTel").ToString());
+                return;
+            }
             if (Mode == "Add")
             {
                 income.CreateTime = DateTime.Now;
@@ -507,7 +523,7 @@ namespace FamilyFinancialMS.ViewModel
                     IRow frow1 = sheet.CreateRow(i + 1);  //之所以从i+1开始 因为第一行已经有表头了
                     frow1.CreateCell(0).SetCellValue(IncomeList[i].IncomeCode);
                     frow1.CreateCell(1).SetCellValue(IncomeList[i].IncomeName);
-                    frow1.CreateCell(2).SetCellValue(IncomeList[i].Incomedate);
+                    frow1.CreateCell(2).SetCellValue(IncomeList[i].Incomedate.ToString("d"));
                     frow1.CreateCell(3).SetCellValue(IncomeList[i].IncomeNumber);
                     frow1.CreateCell(4).SetCellValue(IncomeList[i].FamilyName);
                     frow1.CreateCell(5).SetCellValue(IncomeList[i].FamilyTel);

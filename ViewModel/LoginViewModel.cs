@@ -83,6 +83,26 @@ namespace FamilyFinancialMS.ViewModel
             }
         }
 
+        private RelayCommand resetCommand;
+
+        public RelayCommand ResetCommand
+        {
+            get
+            {
+                if (resetCommand == null)
+                {
+                    resetCommand = new RelayCommand(() => Reset());
+                }
+                return resetCommand;
+            }
+        }
+
+        public void Reset()
+        {
+            Account = string.Empty;
+            Password = string.Empty;
+        }
+
         public  void Login()
         {
             try
@@ -94,7 +114,13 @@ namespace FamilyFinancialMS.ViewModel
                     if (list.Exists(l => l.Password == Password))
                     {
                         var user = list.FirstOrDefault();
+                        if(user.IsLocked)
+                        {
+                            AduMessageBox.Show(Application.Current.FindResource("AccountLocked").ToString());
+                            return;
+                        }
                         user.LoginCounter += 1;
+                        user.LastLoginTime = DateTime.Now;
                         server.AddLoginCounter(user);
                         LoginUser = user;
                         WindowManager.Show("MainWindow", null);
