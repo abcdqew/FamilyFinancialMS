@@ -4,29 +4,28 @@ using FamilyFinancialMS.Common;
 using FamilyFinancialMS.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Model.Entities;
 using Model.Helper;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
 using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-
+using Microsoft.WindowsAPICodePack.Dialogs;
+using NPOI.XSSF.UserModel;
+using NPOI.SS.UserModel;
+using System.IO;
 
 namespace FamilyFinancialMS.ViewModel
 {
-   public class ExpenditureViewModel : ViewModelBase
+   public class IncExpTypeViewModel : ViewModelBase
     {
-        public ExpenditureViewModel()
+        public IncExpTypeViewModel()
         {
             if (LoginViewModel.LoginUser.FlagAdmin)
             {
@@ -52,7 +51,7 @@ namespace FamilyFinancialMS.ViewModel
             set { tabpageIndex = value; RaisePropertyChanged(); }
         }
         public string Mode = string.Empty;
-        public ExpenditureRepository server = new ExpenditureRepository();
+        public IncExpTypeRepository server = new IncExpTypeRepository();
         private string queryText = string.Empty;
         /// <summary>
         /// 查询条件
@@ -61,24 +60,6 @@ namespace FamilyFinancialMS.ViewModel
         {
             get { return queryText; }
             set { queryText = value; RaisePropertyChanged(); }
-        }
-        private DateTime startDate = DateTime.Now.Date.AddMonths(-1);
-        /// <summary>
-        /// 开始时间
-        /// </summary>
-        public DateTime StartDate
-        {
-            get { return startDate; }
-            set { startDate = value; RaisePropertyChanged(); }
-        }
-        private DateTime endDate = DateTime.Now.Date;
-        /// <summary>
-        /// 结束时间
-        /// </summary>
-        public DateTime EndDate
-        {
-            get { return endDate; }
-            set { endDate = value; RaisePropertyChanged(); }
         }
         private int id = 0;
         /// <summary>
@@ -134,80 +115,53 @@ namespace FamilyFinancialMS.ViewModel
             get { return gcflag; }
             set { gcflag = value; RaisePropertyChanged(); }
         }
-        private string expenditureCode = string.Empty;
+        private string code = string.Empty;
         /// <summary>
-        /// 收入Code（雪花算法生成
+        /// 类型Code（雪花算法生成
         /// </summary>
-        public string ExpenditureCode
+        public string Code
         {
-            get { return expenditureCode; }
-            set { expenditureCode = value; RaisePropertyChanged(); }
+            get { return code; }
+            set { code = value; RaisePropertyChanged(); }
         }
-        private string expenditureName = string.Empty;
+        private string name = string.Empty;
         /// <summary>
-        /// 收入名称
+        /// 类型名称
         /// </summary>
-        public string ExpenditureName
+        public string Name
         {
-            get { return expenditureName; }
-            set { expenditureName = value; RaisePropertyChanged(); }
+            get { return name; }
+            set { name = value; RaisePropertyChanged(); }
         }
-        private string familyName = string.Empty;
+        private string type = string.Empty;
         /// <summary>
-        /// 收入人姓名
+        /// 收支类型
         /// </summary>
-        public string FamilyName
+        public string Type
         {
-            get { return familyName; }
-            set { familyName = value; RaisePropertyChanged(); }
+            get { return type; }
+            set { type = value; RaisePropertyChanged(); }
         }
-        private double expenditureNumber = 0;
-        /// <summary>
-        /// 收入金额
-        /// </summary>
-        public double ExpenditureNumber
-        {
-            get { return expenditureNumber; }
-            set { expenditureNumber = value; RaisePropertyChanged(); }
-        }
-        private string familyTel = string.Empty;
-        /// <summary>
-        /// 收入人电话
-        /// </summary>
-        public string FamilyTel
-        {
-            get { return familyTel; }
-            set { familyTel = value; RaisePropertyChanged(); }
-        }
-        private DateTime expendituredate = DateTime.Today;
-        /// <summary>
-        /// 收入日期
-        /// </summary>
-        public DateTime Expendituredate
-        {
-            get { return expendituredate; }
-            set { expendituredate = value; RaisePropertyChanged(); }
-        }
-        private ObservableCollection<Expenditure> expenditureList = new ObservableCollection<Expenditure>();
+        private ObservableCollection<IncExpType> incExpTypeList = new ObservableCollection<IncExpType>();
         /// <summary>
         /// 收入列表
         /// </summary>TotalUserList
-        public ObservableCollection<Expenditure> ExpenditureList
+        public ObservableCollection<IncExpType> IncExpTypeList
         {
-            get { return expenditureList; }
-            set { expenditureList = value; RaisePropertyChanged(); }
+            get { return incExpTypeList; }
+            set { incExpTypeList = value; RaisePropertyChanged(); }
         }
-        private ObservableCollection<Expenditure> totalExpenditureList = new ObservableCollection<Expenditure>();
+        private ObservableCollection<IncExpType> totalIncExpTypeList = new ObservableCollection<IncExpType>();
         /// <summary>
         /// 总收入列表
         /// </summary>
-        public ObservableCollection<Expenditure> TotalExpenditureList
+        public ObservableCollection<IncExpType> TotalIncExpTypeList
         {
-            get { return totalExpenditureList; }
-            set { totalExpenditureList = value; RaisePropertyChanged(); }
+            get { return totalIncExpTypeList; }
+            set { totalIncExpTypeList = value; RaisePropertyChanged(); }
         }
-        private Expenditure selectList = null;
-        public Expenditure SelectList
+        private IncExpType selectList = null;
+        public IncExpType SelectList
         {
             get { return selectList; }
             set { selectList = value; RaisePropertyChanged(); }
@@ -311,19 +265,6 @@ namespace FamilyFinancialMS.ViewModel
                 return cancelCommand;
             }
         }
-        private RelayCommand exportCommand;
-
-        public RelayCommand ExportCommand
-        {
-            get
-            {
-                if (exportCommand == null)
-                {
-                    exportCommand = new RelayCommand(() => Export());
-                }
-                return exportCommand;
-            }
-        }
         /// <summary>
         ///     页码改变命令
         /// </summary>
@@ -335,42 +276,28 @@ namespace FamilyFinancialMS.ViewModel
         /// </summary>
         private void PageUpdated(FunctionEventArgs<int> info)
         {
-            ExpenditureList = new ObservableCollection<Expenditure>(TotalExpenditureList.Skip((info.Info - 1) * 10).Take(10).ToList());
+            IncExpTypeList = new ObservableCollection<IncExpType>(TotalIncExpTypeList.Skip((info.Info - 1) * 10).Take(10).ToList());
         }
         public void Save()
         {
-            Expenditure expenditure = new Expenditure();
-            expenditure.ExpenditureCode = Helper.nextId().ToString();
-            expenditure.ExpenditureName = ExpenditureName;
-            expenditure.FamilyName = FamilyName;
-            expenditure.FamilyTel = FamilyTel;
-            expenditure.ExpenditureNumber = ExpenditureNumber;
-            expenditure.Expendituredate = Expendituredate;
-            expenditure.Gcflag = false;
-            expenditure.Id = Id;
-            if (string.IsNullOrWhiteSpace(expenditure.ExpenditureName) || expenditure.ExpenditureNumber == 0 || string.IsNullOrWhiteSpace(expenditure.FamilyName) || string.IsNullOrWhiteSpace(expenditure.FamilyTel))
+            IncExpType incExpTypeList = new IncExpType();
+            incExpTypeList.Code = Helper.nextId().ToString();
+            incExpTypeList.Name = Name;
+            incExpTypeList.Type = Type;
+            incExpTypeList.Gcflag = false;
+            incExpTypeList.Id = Id;
+            if (string.IsNullOrWhiteSpace(incExpTypeList.Name)  || string.IsNullOrWhiteSpace(incExpTypeList.Type))
             {
                 AduMessageBox.Show(Application.Current.FindResource("RequiredNotSpace").ToString());
                 return;
             }
-            var isfamily = server.QueryFamily(expenditure.FamilyName, expenditure.FamilyTel);
-            if (isfamily == 0)
-            {
-                AduMessageBox.Show(Application.Current.FindResource("Income_NoFamilyName").ToString());
-                return;
-            }
-            if (isfamily == 1)
-            {
-                AduMessageBox.Show(Application.Current.FindResource("Income_NoFamilyTel").ToString());
-                return;
-            }
             if (Mode == "Add")
             {
-                expenditure.CreateTime = DateTime.Now;
-                expenditure.CreateUser = LoginViewModel.LoginUser.Account;
-                expenditure.UpdateTime = DateTime.Now;
-                expenditure.UpdateUser = LoginViewModel.LoginUser.Account;
-                var isAdd = server.AddExpenditure(expenditure);
+                incExpTypeList.CreateTime = DateTime.Now;
+                incExpTypeList.CreateUser = LoginViewModel.LoginUser.Account;
+                incExpTypeList.UpdateTime = DateTime.Now;
+                incExpTypeList.UpdateUser = LoginViewModel.LoginUser.Account;
+                var isAdd = server.AddIncExpType(incExpTypeList);
                 if (isAdd > 0)
                 {
                     AduMessageBox.Show(Application.Current.FindResource("AddSuccess").ToString(), Application.Current.FindResource("Save").ToString());
@@ -384,11 +311,11 @@ namespace FamilyFinancialMS.ViewModel
             }
             else if (Mode == "Edit")
             {
-                expenditure.CreateTime = CreateTime;
-                expenditure.CreateUser = CreateUser;
-                expenditure.UpdateTime = DateTime.Now;
-                expenditure.UpdateUser = LoginViewModel.LoginUser.Account;
-                var isAdd = server.EditExpenditure(expenditure);
+                incExpTypeList.CreateTime = CreateTime;
+                incExpTypeList.CreateUser = CreateUser;
+                incExpTypeList.UpdateTime = DateTime.Now;
+                incExpTypeList.UpdateUser = LoginViewModel.LoginUser.Account;
+                var isAdd = server.EditIncExpType(incExpTypeList);
                 if (isAdd > 0)
                 {
                     AduMessageBox.Show(Application.Current.FindResource("EditSuccess").ToString(), Application.Current.FindResource("Edit").ToString());
@@ -425,13 +352,9 @@ namespace FamilyFinancialMS.ViewModel
                 UpdateTime = SelectList.UpdateTime;
                 Updateuser = SelectList.UpdateUser;
                 Gcflag = SelectList.Gcflag;
-                ExpenditureCode = SelectList.ExpenditureCode;
-                ExpenditureName = SelectList.ExpenditureName;
-                Expendituredate = SelectList.Expendituredate;
-                ExpenditureNumber = SelectList.ExpenditureNumber;
-                FamilyName = SelectList.FamilyName;
-                FamilyTel = SelectList.FamilyTel;
-
+                Code = SelectList.Code;
+                Name = SelectList.Name;
+                Type = SelectList.Type;
             }
         }
 
@@ -443,7 +366,7 @@ namespace FamilyFinancialMS.ViewModel
                 if (isok == "OK")
                 {
                     SelectList.Gcflag = true;
-                    var isdel = server.DelExpenditure(SelectList);
+                    var isdel = server.DelIncExpType(SelectList);
                     if (isdel > 0)
                     {
                         AduMessageBox.Show(Application.Current.FindResource("DelSuccess").ToString(), Application.Current.FindResource("Del").ToString());
@@ -460,89 +383,33 @@ namespace FamilyFinancialMS.ViewModel
         public void ResetQuery()
         {
             QueryText = string.Empty;
-            ExpenditureCode = string.Empty;
-            ExpenditureName = string.Empty;
-            Expendituredate = DateTime.Today;
-            ExpenditureNumber = 0;
-            FamilyName = string.Empty;
-            FamilyTel = string.Empty;
-            StartDate = DateTime.Now.Date.AddMonths(-1);
-            EndDate = DateTime.Now.Date;
+            Code = string.Empty;
+            Name = string.Empty;
+            Type = string.Empty;
             GetPageData();
         }
         public void GetPageData()
         {
-
-            ExpenditureList.Clear();
-            TotalExpenditureList.Clear();
+            IncExpTypeList.Clear();
+            TotalIncExpTypeList.Clear();
             Query query = new Query();
             query.QueryText = QueryText;
-            query.StartDate = StartDate;
-            query.EndDate = EndDate;
-            var list = server.QueryExpenditure(query);
+            var list = server.QueryIncExpType(query);
             list.ForEach(it =>
             {
-                TotalExpenditureList.Add(it);
+                TotalIncExpTypeList.Add(it);
             });
             int i = 0;
-            foreach (var item in TotalExpenditureList)
+            foreach (var item in TotalIncExpTypeList)
             {
                 i++;
                 if (i <= 10)
                 {
-                    ExpenditureList.Add(item);
+                    IncExpTypeList.Add(item);
                 }
                 else
                     break;
             }
-        }
-        private void Export()
-        {
-            var dlg = new CommonOpenFileDialog();
-            dlg.IsFolderPicker = true;
-            dlg.InitialDirectory = "C:\\";
-            string filename = string.Empty;
-            string filetime = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
-            {
-                filename = dlg.FileName;
-
-                XSSFWorkbook workBook = new XSSFWorkbook();  //实例化XSSF
-                XSSFSheet sheet = (XSSFSheet)workBook.CreateSheet();  //创建一个sheet
-
-                IRow frow0 = sheet.CreateRow(0);  // 添加一行（一般第一行是表头）
-                frow0.CreateCell(0).SetCellValue(Application.Current.FindResource("Expenditure_ExpenditureCode").ToString());
-                frow0.CreateCell(1).SetCellValue(Application.Current.FindResource("Expenditure_ExpenditureName").ToString());
-                frow0.CreateCell(2).SetCellValue(Application.Current.FindResource("Expenditure_Expendituredate").ToString());   //表头内容
-                frow0.CreateCell(3).SetCellValue(Application.Current.FindResource("Expenditure_ExpenditureNumber").ToString());
-                frow0.CreateCell(4).SetCellValue(Application.Current.FindResource("Expenditure_FamilyName").ToString());
-                frow0.CreateCell(5).SetCellValue(Application.Current.FindResource("Expenditure_FamilyTel").ToString());
-                for (int i = 0; i < ExpenditureList.Count; i++)  //循环添加list中的内容放到表格里
-                {
-                    IRow frow1 = sheet.CreateRow(i + 1);  //之所以从i+1开始 因为第一行已经有表头了
-                    frow1.CreateCell(0).SetCellValue(ExpenditureList[i].ExpenditureCode);
-                    frow1.CreateCell(1).SetCellValue(ExpenditureList[i].ExpenditureName);
-                    frow1.CreateCell(2).SetCellValue(ExpenditureList[i].Expendituredate);
-                    frow1.CreateCell(3).SetCellValue(ExpenditureList[i].ExpenditureNumber);
-                    frow1.CreateCell(4).SetCellValue(ExpenditureList[i].FamilyName);
-                    frow1.CreateCell(5).SetCellValue(ExpenditureList[i].FamilyTel);
-                }
-                string saveFileName = filename + "\\" + Application.Current.FindResource("Expenditure_TotalExpenditure").ToString() + filetime + ".xlsx";
-                try
-                {
-                    using (FileStream fs = new FileStream(saveFileName, FileMode.Create, FileAccess.Write))
-                    {
-                        workBook.Write(fs);  //写入文件
-                        workBook.Close();  //关闭
-                    }
-                    AduMessageBox.Show("导出成功");
-                }
-                catch (Exception)
-                {
-                    workBook.Close();
-                }
-            }
-
         }
         #endregion
     }

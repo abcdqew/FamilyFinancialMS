@@ -119,6 +119,8 @@
     <Compile Include="ViewModel\BackupDatabaseViewModel.cs" />
     <Compile Include="ViewModel\ExpenditureViewModel.cs" />
     <Compile Include="ViewModel\FamilyViewModel.cs" />
+    <Compile Include="ViewModel\FixedAssetsViewModel.cs" />
+    <Compile Include="ViewModel\IncExpTypeViewModel.cs" />
     <Compile Include="ViewModel\IncomeViewModel.cs" />
     <Compile Include="ViewModel\ItemMenu.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
@@ -135,6 +137,12 @@
     </Compile>
     <Compile Include="View\FamilyView.xaml.cs">
       <DependentUpon>FamilyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FixedAssetsView.xaml.cs">
+      <DependentUpon>FixedAssetsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\IncExpTypeView.xaml.cs">
+      <DependentUpon>IncExpTypeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\IncomeView.xaml.cs">
       <DependentUpon>IncomeView.xaml</DependentUpon>
@@ -192,6 +200,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\FamilyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FixedAssetsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\IncExpTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

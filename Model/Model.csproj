@@ -72,6 +72,8 @@
   <ItemGroup>
     <Compile Include="Entities\Expenditure.cs" />
     <Compile Include="Entities\Family.cs" />
+    <Compile Include="Entities\FixedAssets.cs" />
+    <Compile Include="Entities\IncExpType.cs" />
     <Compile Include="Entities\Income.cs" />
     <Compile Include="Entities\Menu.cs" />
     <Compile Include="Entities\Query.cs" />

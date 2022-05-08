@@ -55,6 +55,12 @@
     <sys:String x:Key="Family_Tel">电话</sys:String>
     <sys:String x:Key="Family_Birthday">生日</sys:String>
     <sys:String x:Key="Family_Iswork">是否就业</sys:String>
+    <!--收支类型-->
+    <sys:String x:Key="IncExpType_Name">名称</sys:String>
+    <sys:String x:Key="IncExpType_Code">编码</sys:String>
+    <sys:String x:Key="IncExpType_Type">类型</sys:String>
+    <sys:String x:Key="IncExpType_Income">收入</sys:String>
+    <sys:String x:Key="IncExpType_Expenditure">支出</sys:String>
     <!--收入-->
     <sys:String x:Key="Income_TotalIncome">收入汇总</sys:String>
     <sys:String x:Key="Income_IncomeName">收入名称</sys:String>
@@ -66,7 +72,7 @@
     <sys:String x:Key="Income_NoFamilyName">没有找到该名家庭成员</sys:String>
     <sys:String x:Key="Income_NoFamilyTel">电话填写错误</sys:String>
     <!--支出-->
-    <sys:String x:Key="Income_TotalExpenditure">支出汇总</sys:String>
+    <sys:String x:Key="Expenditure_TotalExpenditure">支出汇总</sys:String>
     <sys:String x:Key="Expenditure_ExpenditureName">支出名称</sys:String>
     <sys:String x:Key="Expenditure_FamilyName">支出人姓名</sys:String>
     <sys:String x:Key="Expenditure_ExpenditureNumber">支出金额(元)</sys:String>
@@ -79,6 +85,14 @@
     <sys:String x:Key="Statistics_StatisticsTotalIncome">总收入(元)</sys:String>
     <sys:String x:Key="Statistics_StatisticsTotalExpenditure">总支出(元)</sys:String>
     <sys:String x:Key="Statistics_StatisticsBalance">余额(元)</sys:String>
+    <!--固定资产-->
+    <sys:String x:Key="FixedAssets_Name">资产名称</sys:String>
+    <sys:String x:Key="FixedAssets_Code">资产编码</sys:String>
+    <sys:String x:Key="FixedAssets_PurchaseDate">购买日期</sys:String>
+    <sys:String x:Key="FixedAssets_UnitPrice">单价</sys:String>
+    <sys:String x:Key="FixedAssets_Quantity">数量</sys:String>
+    <sys:String x:Key="FixedAssets_TotalPrice">总金额</sys:String>
+    <sys:String x:Key="FixedAssets_Purchaser">购买人姓名</sys:String>
     <!--数据库备份-->
     <sys:String x:Key="BackupDatabase_Backup">备份</sys:String>
     <sys:String x:Key="BackupDatabase_Restore">还原</sys:String>

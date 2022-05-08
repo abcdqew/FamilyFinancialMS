@@ -41,9 +41,11 @@ namespace FamilyFinancialMS
             var menuRegister = new List<SubItem>();
             menuRegister.Add(new SubItem("账号管理", new UserView()));
             menuRegister.Add(new SubItem("家庭成员管理", new FamilyView()));
+            menuRegister.Add(new SubItem("收支类型管理", new IncExpTypeView()));
             menuRegister.Add(new SubItem("收入管理",new IncomeView()));
             menuRegister.Add(new SubItem("支出管理",new ExpenditureView()));
             menuRegister.Add(new SubItem("账目统计",new StatisticsView()));
+            menuRegister.Add(new SubItem("固定资产", new FixedAssetsView()));
             menuRegister.Add(new SubItem("数据库备份", new BackupDatabaseView()));
             var item1 = new ItemMenu(Application.Current.FindResource("FamilyFinancialMS").ToString(), menuRegister, PackIconKind.Register);
             Menu.Children.Add(new UserControlMenuItem(item1, this));

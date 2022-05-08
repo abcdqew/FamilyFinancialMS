@@ -4,30 +4,30 @@ using FamilyFinancialMS.Common;
 using FamilyFinancialMS.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Model.Entities;
 using Model.Helper;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
 using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-
+using Microsoft.WindowsAPICodePack.Dialogs;
+using NPOI.XSSF.UserModel;
+using NPOI.SS.UserModel;
+using System.IO;
 
 namespace FamilyFinancialMS.ViewModel
 {
-   public class ExpenditureViewModel : ViewModelBase
+    public class FixedAssetsViewModel : ViewModelBase
     {
-        public ExpenditureViewModel()
+        public FixedAssetsViewModel()
         {
+
             if (LoginViewModel.LoginUser.FlagAdmin)
             {
                 Visibility = Visibility.Visible;
@@ -52,7 +52,7 @@ namespace FamilyFinancialMS.ViewModel
             set { tabpageIndex = value; RaisePropertyChanged(); }
         }
         public string Mode = string.Empty;
-        public ExpenditureRepository server = new ExpenditureRepository();
+        public FixedAssetsRepository server = new FixedAssetsRepository();
         private string queryText = string.Empty;
         /// <summary>
         /// 查询条件
@@ -134,80 +134,89 @@ namespace FamilyFinancialMS.ViewModel
             get { return gcflag; }
             set { gcflag = value; RaisePropertyChanged(); }
         }
-        private string expenditureCode = string.Empty;
+        private string code = string.Empty;
         /// <summary>
-        /// 收入Code（雪花算法生成
+        /// 资产Code（雪花算法生成
         /// </summary>
-        public string ExpenditureCode
+        public string Code
         {
-            get { return expenditureCode; }
-            set { expenditureCode = value; RaisePropertyChanged(); }
+            get { return code; }
+            set { code = value; RaisePropertyChanged(); }
         }
-        private string expenditureName = string.Empty;
+        private string name = string.Empty;
         /// <summary>
-        /// 收入名称
+        /// 资产名称
         /// </summary>
-        public string ExpenditureName
+        public string Name
         {
-            get { return expenditureName; }
-            set { expenditureName = value; RaisePropertyChanged(); }
+            get { return name; }
+            set { name = value; RaisePropertyChanged(); }
         }
-        private string familyName = string.Empty;
+        private string purchaser = string.Empty;
         /// <summary>
-        /// 收入人姓名
+        /// 购买人姓名
         /// </summary>
-        public string FamilyName
+        public string Purchaser
         {
-            get { return familyName; }
-            set { familyName = value; RaisePropertyChanged(); }
+            get { return purchaser; }
+            set { purchaser = value; RaisePropertyChanged(); }
         }
-        private double expenditureNumber = 0;
+        private double unitPrice = 0;
         /// <summary>
-        /// 收入金额
+        /// 单价
         /// </summary>
-        public double ExpenditureNumber
+        public double UnitPrice
         {
-            get { return expenditureNumber; }
-            set { expenditureNumber = value; RaisePropertyChanged(); }
+            get { return unitPrice; }
+            set { unitPrice = value; RaisePropertyChanged(); }
         }
-        private string familyTel = string.Empty;
+        private double quantity = 0;
         /// <summary>
-        /// 收入人电话
+        /// 数量
         /// </summary>
-        public string FamilyTel
+        public double Quantity
         {
-            get { return familyTel; }
-            set { familyTel = value; RaisePropertyChanged(); }
+            get { return quantity; }
+            set { quantity = value; RaisePropertyChanged(); }
         }
-        private DateTime expendituredate = DateTime.Today;
+        private double totalPrice = 0;
         /// <summary>
-        /// 收入日期
+        /// 总金额
         /// </summary>
-        public DateTime Expendituredate
+        public double TotalPrice
         {
-            get { return expendituredate; }
-            set { expendituredate = value; RaisePropertyChanged(); }
+            get { return totalPrice; }
+            set { totalPrice = value; RaisePropertyChanged(); }
         }
-        private ObservableCollection<Expenditure> expenditureList = new ObservableCollection<Expenditure>();
+        private DateTime purchaseDate = DateTime.Today;
+        /// <summary>
+        /// 购买日期
+        /// </summary>
+        public DateTime PurchaseDate
+        {
+            get { return purchaseDate; }
+            set { purchaseDate = value; RaisePropertyChanged(); }
+        }
+        private ObservableCollection<FixedAssets> fxedAssetsList = new ObservableCollection<FixedAssets>();
         /// <summary>
         /// 收入列表
         /// </summary>TotalUserList
-        public ObservableCollection<Expenditure> ExpenditureList
+        public ObservableCollection<FixedAssets> FixedAssetsList
         {
-            get { return expenditureList; }
-            set { expenditureList = value; RaisePropertyChanged(); }
+            get { return fxedAssetsList; }
+            set { fxedAssetsList = value; RaisePropertyChanged(); }
         }
-        private ObservableCollection<Expenditure> totalExpenditureList = new ObservableCollection<Expenditure>();
+        private ObservableCollection<FixedAssets> totalFixedAssetsList = new ObservableCollection<FixedAssets>();
         /// <summary>
         /// 总收入列表
         /// </summary>
-        public ObservableCollection<Expenditure> TotalExpenditureList
+        public ObservableCollection<FixedAssets> TotalFixedAssetsList
         {
-            get { return totalExpenditureList; }
-            set { totalExpenditureList = value; RaisePropertyChanged(); }
+            get { return totalFixedAssetsList; }
+            set { totalFixedAssetsList = value; RaisePropertyChanged(); }
         }
-        private Expenditure selectList = null;
-        public Expenditure SelectList
+        private FixedAssets selectList = null;
+        public FixedAssets SelectList
         {
             get { return selectList; }
             set { selectList = value; RaisePropertyChanged(); }
@@ -297,6 +306,20 @@ namespace FamilyFinancialMS.ViewModel
                 return saveCommand;
             }
         }
+        private RelayCommand exportCommand;
+
+        public RelayCommand ExportCommand
+        {
+            get
+            {
+                if (exportCommand == null)
+                {
+                    exportCommand = new RelayCommand(() => Export());
+                }
+                return exportCommand;
+            }
+        }
+
 
         private RelayCommand cancelCommand;
 
@@ -311,19 +334,6 @@ namespace FamilyFinancialMS.ViewModel
                 return cancelCommand;
             }
         }
-        private RelayCommand exportCommand;
-
-        public RelayCommand ExportCommand
-        {
-            get
-            {
-                if (exportCommand == null)
-                {
-                    exportCommand = new RelayCommand(() => Export());
-                }
-                return exportCommand;
-            }
-        }
         /// <summary>
         ///     页码改变命令
         /// </summary>
@@ -335,42 +345,39 @@ namespace FamilyFinancialMS.ViewModel
         /// </summary>
         private void PageUpdated(FunctionEventArgs<int> info)
         {
-            ExpenditureList = new ObservableCollection<Expenditure>(TotalExpenditureList.Skip((info.Info - 1) * 10).Take(10).ToList());
+            FixedAssetsList = new ObservableCollection<FixedAssets>(TotalFixedAssetsList.Skip((info.Info - 1) * 10).Take(10).ToList());
         }
         public void Save()
         {
-            Expenditure expenditure = new Expenditure();
-            expenditure.ExpenditureCode = Helper.nextId().ToString();
-            expenditure.ExpenditureName = ExpenditureName;
-            expenditure.FamilyName = FamilyName;
-            expenditure.FamilyTel = FamilyTel;
-            expenditure.ExpenditureNumber = ExpenditureNumber;
-            expenditure.Expendituredate = Expendituredate;
-            expenditure.Gcflag = false;
-            expenditure.Id = Id;
-            if (string.IsNullOrWhiteSpace(expenditure.ExpenditureName) || expenditure.ExpenditureNumber == 0 || string.IsNullOrWhiteSpace(expenditure.FamilyName) || string.IsNullOrWhiteSpace(expenditure.FamilyTel))
+            FixedAssets fixedAssets = new FixedAssets();
+            fixedAssets.Code = Helper.nextId().ToString();
+            fixedAssets.Name = Name;
+            fixedAssets.Purchaser = Purchaser;
+            fixedAssets.PurchaseDate = PurchaseDate;
+            fixedAssets.UnitPrice = UnitPrice;
+            fixedAssets.Quantity = Quantity;
+            fixedAssets.TotalPrice =UnitPrice * Quantity;
+            fixedAssets.Gcflag = false;
+            fixedAssets.Id = Id;
+            if (string.IsNullOrWhiteSpace(fixedAssets.Name) || fixedAssets.UnitPrice == 0 || fixedAssets.Quantity == 0 || string.IsNullOrWhiteSpace(fixedAssets.Purchaser))
             {
                 AduMessageBox.Show(Application.Current.FindResource("RequiredNotSpace").ToString());
                 return;
             }
-            var isfamily = server.QueryFamily(expenditure.FamilyName, expenditure.FamilyTel);
+            var isfamily = server.QueryFamily(fixedAssets.Purchaser);
             if (isfamily == 0)
             {
                 AduMessageBox.Show(Application.Current.FindResource("Income_NoFamilyName").ToString());
                 return;
             }
-            if (isfamily == 1)
-            {
-                AduMessageBox.Show(Application.Current.FindResource("Income_NoFamilyTel").ToString());
-                return;
-            }
+            
             if (Mode == "Add")
             {
-                expenditure.CreateTime = DateTime.Now;
-                expenditure.CreateUser = LoginViewModel.LoginUser.Account;
-                expenditure.UpdateTime = DateTime.Now;
-                expenditure.UpdateUser = LoginViewModel.LoginUser.Account;
-                var isAdd = server.AddExpenditure(expenditure);
+                fixedAssets.CreateTime = DateTime.Now;
+                fixedAssets.CreateUser = LoginViewModel.LoginUser.Account;
+                fixedAssets.UpdateTime = DateTime.Now;
+                fixedAssets.UpdateUser = LoginViewModel.LoginUser.Account;
+                var isAdd = server.AddFixedAssets(fixedAssets);
                 if (isAdd > 0)
                 {
                     AduMessageBox.Show(Application.Current.FindResource("AddSuccess").ToString(), Application.Current.FindResource("Save").ToString());
@@ -384,11 +391,11 @@ namespace FamilyFinancialMS.ViewModel
             }
             else if (Mode == "Edit")
             {
-                expenditure.CreateTime = CreateTime;
-                expenditure.CreateUser = CreateUser;
-                expenditure.UpdateTime = DateTime.Now;
-                expenditure.UpdateUser = LoginViewModel.LoginUser.Account;
-                var isAdd = server.EditExpenditure(expenditure);
+                fixedAssets.CreateTime = CreateTime;
+                fixedAssets.CreateUser = CreateUser;
+                fixedAssets.UpdateTime = DateTime.Now;
+                fixedAssets.UpdateUser = LoginViewModel.LoginUser.Account;
+                var isAdd = server.EditFixedAssets(fixedAssets);
                 if (isAdd > 0)
                 {
                     AduMessageBox.Show(Application.Current.FindResource("EditSuccess").ToString(), Application.Current.FindResource("Edit").ToString());
@@ -425,13 +432,13 @@ namespace FamilyFinancialMS.ViewModel
                 UpdateTime = SelectList.UpdateTime;
                 Updateuser = SelectList.UpdateUser;
                 Gcflag = SelectList.Gcflag;
-                ExpenditureCode = SelectList.ExpenditureCode;
-                ExpenditureName = SelectList.ExpenditureName;
-                Expendituredate = SelectList.Expendituredate;
-                ExpenditureNumber = SelectList.ExpenditureNumber;
-                FamilyName = SelectList.FamilyName;
-                FamilyTel = SelectList.FamilyTel;
-
+                Code = SelectList.Code;
+                Name = SelectList.Name;
+                PurchaseDate = SelectList.PurchaseDate;
+                Purchaser = SelectList.Purchaser;
+                UnitPrice = SelectList.UnitPrice;
+                Quantity = SelectList.Quantity;
+                TotalPrice = SelectList.TotalPrice;
             }
         }
 
@@ -443,7 +450,7 @@ namespace FamilyFinancialMS.ViewModel
                 if (isok == "OK")
                 {
                     SelectList.Gcflag = true;
-                    var isdel = server.DelExpenditure(SelectList);
+                    var isdel = server.DelFixedAssets(SelectList);
                     if (isdel > 0)
                     {
                         AduMessageBox.Show(Application.Current.FindResource("DelSuccess").ToString(), Application.Current.FindResource("Del").ToString());
@@ -460,42 +467,43 @@ namespace FamilyFinancialMS.ViewModel
         public void ResetQuery()
         {
             QueryText = string.Empty;
-            ExpenditureCode = string.Empty;
-            ExpenditureName = string.Empty;
-            Expendituredate = DateTime.Today;
-            ExpenditureNumber = 0;
-            FamilyName = string.Empty;
-            FamilyTel = string.Empty;
+            Code = string.Empty;
+            Name = string.Empty;
+            PurchaseDate = DateTime.Today;
+            UnitPrice = 0;
+            Quantity = 0;
+            TotalPrice = 0;
+            Purchaser = string.Empty;
             StartDate = DateTime.Now.Date.AddMonths(-1);
             EndDate = DateTime.Now.Date;
             GetPageData();
         }
         public void GetPageData()
         {
-
-            ExpenditureList.Clear();
-            TotalExpenditureList.Clear();
+            FixedAssetsList.Clear();
+            TotalFixedAssetsList.Clear();
             Query query = new Query();
             query.QueryText = QueryText;
             query.StartDate = StartDate;
             query.EndDate = EndDate;
-            var list = server.QueryExpenditure(query);
+            var list = server.QueryFixedAssets(query);
             list.ForEach(it =>
             {
-                TotalExpenditureList.Add(it);
+                TotalFixedAssetsList.Add(it);
             });
             int i = 0;
-            foreach (var item in TotalExpenditureList)
+            foreach (var item in TotalFixedAssetsList)
             {
                 i++;
                 if (i <= 10)
                 {
-                    ExpenditureList.Add(item);
+                    FixedAssetsList.Add(item);
                 }
                 else
                     break;
             }
         }
+
         private void Export()
         {
             var dlg = new CommonOpenFileDialog();
@@ -511,23 +519,23 @@ namespace FamilyFinancialMS.ViewModel
                 XSSFSheet sheet = (XSSFSheet)workBook.CreateSheet();  //创建一个sheet
 
                 IRow frow0 = sheet.CreateRow(0);  // 添加一行（一般第一行是表头）
-                frow0.CreateCell(0).SetCellValue(Application.Current.FindResource("Expenditure_ExpenditureCode").ToString());
-                frow0.CreateCell(1).SetCellValue(Application.Current.FindResource("Expenditure_ExpenditureName").ToString());
-                frow0.CreateCell(2).SetCellValue(Application.Current.FindResource("Expenditure_Expendituredate").ToString());   //表头内容
-                frow0.CreateCell(3).SetCellValue(Application.Current.FindResource("Expenditure_ExpenditureNumber").ToString());
-                frow0.CreateCell(4).SetCellValue(Application.Current.FindResource("Expenditure_FamilyName").ToString());
-                frow0.CreateCell(5).SetCellValue(Application.Current.FindResource("Expenditure_FamilyTel").ToString());
-                for (int i = 0; i < ExpenditureList.Count; i++)  //循环添加list中的内容放到表格里
+                frow0.CreateCell(0).SetCellValue(Application.Current.FindResource("Income_IncomeCode").ToString());
+                frow0.CreateCell(1).SetCellValue(Application.Current.FindResource("Income_IncomeName").ToString());
+                frow0.CreateCell(2).SetCellValue(Application.Current.FindResource("Income_Incomedate").ToString());   //表头内容
+                frow0.CreateCell(3).SetCellValue(Application.Current.FindResource("Income_IncomeNumber").ToString());
+                frow0.CreateCell(4).SetCellValue(Application.Current.FindResource("Income_FamilyName").ToString());
+                frow0.CreateCell(5).SetCellValue(Application.Current.FindResource("Income_FamilyTel").ToString());
+                for (int i = 0; i < FixedAssetsList.Count; i++)  //循环添加list中的内容放到表格里
                 {
                     IRow frow1 = sheet.CreateRow(i + 1);  //之所以从i+1开始 因为第一行已经有表头了
-                    frow1.CreateCell(0).SetCellValue(ExpenditureList[i].ExpenditureCode);
-                    frow1.CreateCell(1).SetCellValue(ExpenditureList[i].ExpenditureName);
-                    frow1.CreateCell(2).SetCellValue(ExpenditureList[i].Expendituredate);
-                    frow1.CreateCell(3).SetCellValue(ExpenditureList[i].ExpenditureNumber);
-                    frow1.CreateCell(4).SetCellValue(ExpenditureList[i].FamilyName);
-                    frow1.CreateCell(5).SetCellValue(ExpenditureList[i].FamilyTel);
+                    frow1.CreateCell(0).SetCellValue(FixedAssetsList[i].Code);
+                    frow1.CreateCell(1).SetCellValue(FixedAssetsList[i].Name);
+                    frow1.CreateCell(2).SetCellValue(FixedAssetsList[i].PurchaseDate.ToString("d"));
+                    frow1.CreateCell(3).SetCellValue(FixedAssetsList[i].UnitPrice);
+                    frow1.CreateCell(4).SetCellValue(FixedAssetsList[i].Quantity);
+                    frow1.CreateCell(5).SetCellValue(FixedAssetsList[i].TotalPrice);
                 }
-                string saveFileName = filename + "\\" + Application.Current.FindResource("Expenditure_TotalExpenditure").ToString() + filetime + ".xlsx";
+                string saveFileName = filename + "\\" + Application.Current.FindResource("Income_TotalIncome").ToString() + filetime + ".xlsx";
                 try
                 {
                     using (FileStream fs = new FileStream(saveFileName, FileMode.Create, FileAccess.Write))

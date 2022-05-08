@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FixedAssetsRepository.cs" />
+    <Compile Include="IncExpTypeRepository.cs" />
     <Compile Include="SaveServer.cs" />
     <Compile Include="ConnectionStringsl.cs" />
     <Compile Include="DefaultContext.cs" />
